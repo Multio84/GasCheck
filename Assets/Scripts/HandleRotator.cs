@@ -3,7 +3,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 
-public class AngleLimiter : MonoBehaviour
+public class HandleRotator : MonoBehaviour
 {
     [Header("Параметры вращения")]
     [Tooltip("Локальная ось вращения")]

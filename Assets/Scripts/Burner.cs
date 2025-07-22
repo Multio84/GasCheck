@@ -27,7 +27,7 @@ public class Burner : MonoBehaviour
         deltaAngle = 360 / jetsAmount;
         Quaternion currentRotation = Quaternion.AngleAxis(offsetAngle, rotationAxis);
 
-        for (int i = 0; i < jetsAmount; i++)
+        for (int i = 0; i <= jetsAmount; i++)
         {
             Instantiate(
                 jet,

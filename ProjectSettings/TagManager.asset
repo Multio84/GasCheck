@@ -6,7 +6,6 @@ TagManager:
   tags:
   - VRController
   - Lighter
-  - Match
   layers:
   - Default
   - TransparentFX

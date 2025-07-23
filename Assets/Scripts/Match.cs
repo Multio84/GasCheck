@@ -5,7 +5,7 @@ public class Match : MonoBehaviour
 {
     [SerializeField] float strikeDistance = 0.025f;   // 2Ц3 см
     [SerializeField] GameObject fire;
-    public bool isLighted = false;
+    public bool isLit = false;
 
     bool touching = false;
     Transform lighter;      // коробка
@@ -15,9 +15,9 @@ public class Match : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Entered some trigger.");
+        //Debug.Log($"Entered trigger {other.name}");
 
-        if (isLighted || !other.CompareTag("Lighter")) return;
+        if (isLit || !other.CompareTag("Lighter")) return;
 
         Debug.Log("Entered Lighter");
 
@@ -54,9 +54,9 @@ public class Match : MonoBehaviour
             touching = false;
     }
 
-    void LightUp()
+    public void LightUp()
     {
-        isLighted = true;
+        isLit = true;
         touching = false;
         fire.SetActive(true);
         Debug.Log("Match is lighted!");

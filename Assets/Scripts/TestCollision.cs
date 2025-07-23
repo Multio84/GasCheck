@@ -6,6 +6,6 @@ public class TestCollision : MonoBehaviour
 
     void OnTriggerEnter(Collider c)
     {
-        Debug.Log($"{logAuthor}: Lighter touched by " + c.name);
+        Debug.Log($"{logAuthor} was touched by " + c.name);
     }
 }

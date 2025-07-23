@@ -3,40 +3,68 @@ using UnityEngine;
 
 public class Burner : MonoBehaviour
 {
-    [SerializeField] GameObject jet;    // a single jet of gas prefab
+    [SerializeField] GameObject jetPrefab;    // a single jetPrefab of gas prefab
     [SerializeField] [Min(1)] int jetsAmount;
     [SerializeField] float offsetAngle; // angle to shift rotation of all jets
-    float deltaAngle;                   // angle from one jet to another
+    [HideInInspector] public bool isLit = false;
+    
+    GameObject[] jets;
+    float deltaAngle;                   // angle from one jetPrefab to another
     Vector3 rotationAxis = Vector3.up;
-    //GasJet[] jets;
+
 
 
     void Start()
     {
+        jets = new GameObject[jetsAmount];
+
         SpawnGasJets();
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        Debug.Log($"Burner collided with {other.name}");
+
+        if (!other.TryGetComponent(out Match match)) return;
+        if (isLit == match.isLit) return;
+
+        if (isLit) match.LightUp();
+        else LightUp();
+    }
+
+    void LightUp()
+    {
+        Debug.Log($"Burner lighted up!");
+
+        foreach (var jet in jets)
+        {
+            if (!jet) continue;
+            jet.SetActive(true);
+        }
     }
 
     void SpawnGasJets()
     {
-        if (!jet)
+        if (!jetPrefab)
         {
             Debug.LogWarning("Prefab not assigned!");
             return;
         }
 
-        deltaAngle = 360 / jetsAmount;
+        deltaAngle = 360 / (jetsAmount);
         Quaternion currentRotation = Quaternion.AngleAxis(offsetAngle, rotationAxis);
 
-        for (int i = 0; i <= jetsAmount; i++)
+        for (int i = 0; i < jetsAmount; i++)
         {
-            Instantiate(
-                jet,
+            var jet = Instantiate(
+                jetPrefab,
                 transform.position,
                 currentRotation,
                 transform
                 );
 
-            Debug.LogWarning($"Spawned at pos {transform.localPosition}");
+            jet.SetActive(false);
+            jets[i] = jet;
 
             // next object's rotation
             currentRotation = Quaternion.AngleAxis(deltaAngle, rotationAxis) * currentRotation;

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6298768208710225517}
   - component: {fileID: 5050696481061630700}
   m_Layer: 0
-  m_Name: Tap
+  m_Name: GasValve
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

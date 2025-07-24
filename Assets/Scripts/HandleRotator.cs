@@ -1,28 +1,52 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using System;
 
 
 public class HandleRotator : MonoBehaviour
 {
+    public enum RotationDirection
+    {
+        Clockwise,
+        CounterClockwise
+    }
+
     [Header("Параметры вращения")]
-    [Tooltip("Локальная ось вращения")]
+    [Tooltip("Локальная ось, вокруг которой крутится рукоятка")]
     public Vector3 rotationAxis = Vector3.forward;
+
+    [Tooltip("Направление, которое считаем «положительным»")]
+    public RotationDirection workDirection = RotationDirection.Clockwise;
+
     public float minAngle = 0f;
     public float maxAngle = 90f;
+
     [Tooltip("Допустимая погрешность для срабатывания переключения")]
-    [Range(0f, 20f)] public float tolerance = 5f;
-    
-    private bool isTurnOn;
-    [HideInInspector] public bool IsTurnOn => isTurnOn;
+    [Range(0f, 20f)] public float tolerance = 10f;
+
+    private bool isOpen;
+    [HideInInspector] public bool IsOpen
+    { 
+        get => isOpen;
+        private set
+        {
+            isOpen = value;
+            //Debug.Log($"{name} sent message '{IsOpen}'. Current angle = {currentAngle}");
+            StateChanged?.Invoke(isOpen);
+        }
+    }
+
+    public event Action<bool> StateChanged;
 
     private XRGrabInteractable grab;
-
     private Transform interactorTransform;
     private Quaternion initialInteractorRotation;
-    private float currentAngle;
 
-    private bool controllerInside;
+    private float currentAngle;     // current rotation angle in work direction
+    private bool controllerInside;  // is handle gripped
+    private int dirSign;            // the sign of work direction
+
 
 
     private void Awake() => grab = GetComponent<XRGrabInteractable>();
@@ -31,6 +55,39 @@ public class HandleRotator : MonoBehaviour
     {
         grab.selectEntered.AddListener(OnGrab);
         grab.selectExited.AddListener(OnRelease);
+
+        dirSign = workDirection == RotationDirection.Clockwise ? 1 : -1;
+    }
+
+    private void LateUpdate()
+    {
+        if (!controllerInside || interactorTransform == null) return;
+
+        Quaternion delta = interactorTransform.rotation *
+                           Quaternion.Inverse(initialInteractorRotation);
+
+        delta.ToAngleAxis(out float rawAngle, out Vector3 axis);
+
+        // задаём знак в зависимости от того, совпадают ли оси
+        if (Vector3.Dot(axis, transform.TransformDirection(rotationAxis)) < 0)
+            rawAngle = -rawAngle;
+
+        // Меняем знак, если рабочим считается направление ПРОТИВ часовой стрелки
+        float logicAngleDelta = rawAngle * dirSign;
+
+        // накапливаем угол в нужном диапазоне
+        float targetAngle = Mathf.Clamp(currentAngle + logicAngleDelta, minAngle, maxAngle);
+        float appliedDeltaLogic = targetAngle - currentAngle;
+        currentAngle = targetAngle;
+
+        // вращаем рукоятку
+        float appliedDeltaVisual = appliedDeltaLogic * dirSign;   // возвращаем исходный знак
+        transform.localRotation *= Quaternion.AngleAxis(appliedDeltaVisual, rotationAxis);
+
+        // обнуляем накопление для следующего кадра
+        initialInteractorRotation = interactorTransform.rotation;
+
+        UpdateIsOpen();
     }
 
     private void OnGrab(SelectEnterEventArgs args)
@@ -49,48 +106,23 @@ public class HandleRotator : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (!other.CompareTag("VRController")) return;
-
         interactorTransform = null;
         controllerInside = false;
     }
 
-    private void LateUpdate()
+    private void UpdateIsOpen()
     {
-        if (!controllerInside || interactorTransform is null) return;
-
-        // delta of controller rotation
-        Quaternion delta = interactorTransform.rotation *
-                           Quaternion.Inverse(initialInteractorRotation);
-
-        delta.ToAngleAxis(out float angle, out Vector3 axis);
-
-        // convert angle into correct sign (-/+)
-        if (Vector3.Dot(axis, transform.TransformDirection(rotationAxis)) < 0)
-            angle = -angle;
-
-        float targetAngle = Mathf.Clamp(currentAngle + angle, minAngle, maxAngle);
-        float appliedDelta = targetAngle - currentAngle;
-        currentAngle = targetAngle;
-
-        transform.localRotation *= Quaternion.AngleAxis(appliedDelta, rotationAxis);
-
-        // обнуляем накопленное
-        initialInteractorRotation = interactorTransform.rotation;
-
-        UpdateIsTurnOn();
-    }
-
-    private void UpdateIsTurnOn()
-    {
-        if (isTurnOn && currentAngle <= minAngle + tolerance)
+        if (IsOpen && currentAngle <= minAngle + tolerance)
         {
-            isTurnOn = false;
+            IsOpen = false;
+            //Debug.Log($"{name} is turned OFF. Current angle = {currentAngle}");
             return;
         }
 
-        if (!isTurnOn && currentAngle >= maxAngle - tolerance)
+        if (!IsOpen && currentAngle >= maxAngle - tolerance)
         {
-            isTurnOn = true;
+            IsOpen = true;
+            //Debug.Log($"{name} is turned ON. Current angle = {currentAngle}");
         }
     }
 }

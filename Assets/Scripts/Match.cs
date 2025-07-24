@@ -19,8 +19,6 @@ public class Match : MonoBehaviour
 
         if (isLit || !other.CompareTag("Lighter")) return;
 
-        Debug.Log("Entered Lighter");
-
         touching = true;
         lighter = other.transform;
         startLocalPos = lighter.InverseTransformPoint(transform.position);
@@ -59,7 +57,6 @@ public class Match : MonoBehaviour
         isLit = true;
         touching = false;
         fire.SetActive(true);
-        Debug.Log("Match is lighted!");
     }
 }
 
@@ -124,7 +121,7 @@ public class Match : MonoBehaviour
 //        traveled += tangential.magnitude;
 
 //        if (traveled >= strikeDistance)
-//            LightUp();
+//            UpdateBurning();
 //    }
 
 //    void ResetStrike()
@@ -134,7 +131,7 @@ public class Match : MonoBehaviour
 //        lighter = null;
 //    }
 
-//    void LightUp()
+//    void UpdateBurning()
 //    {
 //        IsLighted = true;
 //        touching = false;

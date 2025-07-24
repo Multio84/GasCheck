@@ -3,14 +3,26 @@ using UnityEngine;
 
 public class Burner : MonoBehaviour
 {
-    [SerializeField] GameObject jetPrefab;    // a single jetPrefab of gas prefab
+    [SerializeField] GameObject jetPrefab;      // a single jetPrefab of gas prefab
     [SerializeField] [Min(1)] int jetsAmount;
-    [SerializeField] float offsetAngle; // angle to shift rotation of all jets
+    [SerializeField] float offsetAngle;         // angle to shift rotation of all jets
+    [SerializeField] bool hasGas;
+    public bool HasGas 
+    {
+        get => hasGas;
+        internal set
+        {
+            if (HasGas == value) return;
+            hasGas = value;
+            UpdateBurning();
+        }
+    }
     [HideInInspector] public bool isLit = false;
     
     GameObject[] jets;
     float deltaAngle;                   // angle from one jetPrefab to another
     Vector3 rotationAxis = Vector3.up;
+    bool isLitMatchInside = false;
 
 
 
@@ -23,23 +35,46 @@ public class Burner : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"Burner collided with {other.name}");
+        //Debug.Log($"{other.name} entered {name}");
+        if (!other.CompareTag("MatchTip")) return;
 
-        if (!other.TryGetComponent(out Match match)) return;
-        if (isLit == match.isLit) return;
-
-        if (isLit) match.LightUp();
-        else LightUp();
+        Interact(other);
     }
 
-    void LightUp()
+    void OnTriggerExit(Collider other)
     {
-        Debug.Log($"Burner lighted up!");
+        //Debug.Log($"{other.name} quited {name}.");
+        if (!other.CompareTag("MatchTip")) return;
+
+        isLitMatchInside = false;
+    }
+
+    void Interact(Collider obj)
+    {
+        Match match = obj.GetComponentInParent<Match>();
+        if (!match) return;
+        if (match.isLit) isLitMatchInside = true;
+
+        if (isLit == match.isLit) return;
+
+        Debug.Log($"{name} is cheching for light up");
+
+        if (isLit) match.LightUp();
+        else UpdateBurning();
+    }
+
+    void UpdateBurning()
+    {
+        Debug.Log($"{name} is trying to UpdateBurning (HasGas = {hasGas}).");
+        if (hasGas && !isLitMatchInside) return;
+
+        isLit = hasGas;
+        //Debug.Log($"Burner lighted up!");
 
         foreach (var jet in jets)
         {
             if (!jet) continue;
-            jet.SetActive(true);
+            jet.SetActive(hasGas);
         }
     }
 
@@ -51,7 +86,7 @@ public class Burner : MonoBehaviour
             return;
         }
 
-        deltaAngle = 360 / (jetsAmount);
+        deltaAngle = 360 / (jetsAmount - 1);
         Quaternion currentRotation = Quaternion.AngleAxis(offsetAngle, rotationAxis);
 
         for (int i = 0; i < jetsAmount; i++)

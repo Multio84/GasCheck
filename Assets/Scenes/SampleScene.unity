@@ -4622,6 +4622,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Valve
       objectReference: {fileID: 0}
+    - target: {fileID: 5050696481061630700, guid: 4ccf9944a7ba95141a53d06696c757e6, type: 3}
+      propertyPath: workDirection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6342676104345101026, guid: 4ccf9944a7ba95141a53d06696c757e6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -8346,6 +8350,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1540725909}
     m_Modifications:
+    - target: {fileID: 2927687034808013814, guid: 690295811e7c1f843bbb542ee6194f37, type: 3}
+      propertyPath: workDirection
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 4107937604507455330, guid: 690295811e7c1f843bbb542ee6194f37, type: 3}
       propertyPath: m_Name
       value: StoveHandleLB
@@ -12865,9 +12873,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationAxis: {x: 1, y: 0, z: 0}
-  workDirection: 1
+  workDirection: -1
   minAngle: 0
-  maxAngle: 212
+  maxAngle: 213
   tolerance: 5
 --- !u!114 &4778211695244097172
 MonoBehaviour:

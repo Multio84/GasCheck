@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationAxis: {x: 1, y: 0, z: 0}
-  workDirection: 1
+  workDirection: -1
   minAngle: 0
   maxAngle: 90
   tolerance: 5

@@ -1604,15 +1604,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainValve: {fileID: 961322831}
-  _burners:
-  - burner: {fileID: 1865043774}
-    handle: {fileID: 277419465056116129}
-  - burner: {fileID: 1638009692}
-    handle: {fileID: 2011886076}
-  - burner: {fileID: 688221855}
-    handle: {fileID: 1427601322}
-  - burner: {fileID: 1739117193}
-    handle: {fileID: 1393355180}
+  _stove: {fileID: 1346586638}
 --- !u!4 &268140186
 Transform:
   m_ObjectHideFlags: 0
@@ -1622,7 +1614,7 @@ Transform:
   m_GameObject: {fileID: 268140184}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.526172, y: 1.5300673, z: 4.6590314}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5744,6 +5736,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1346586637}
+  - component: {fileID: 1346586638}
   m_Layer: 0
   m_Name: Stove
   m_TagString: Untagged
@@ -5768,6 +5761,27 @@ Transform:
   - {fileID: 1540725909}
   m_Father: {fileID: 1602596178}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1346586638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346586636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2d9ae933c07f5746a14b3c78bbc30c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _burners:
+  - burner: {fileID: 1865043774}
+    handle: {fileID: 277419465056116129}
+  - burner: {fileID: 1638009692}
+    handle: {fileID: 2011886076}
+  - burner: {fileID: 688221855}
+    handle: {fileID: 1427601322}
+  - burner: {fileID: 1739117193}
+    handle: {fileID: 1393355180}
 --- !u!1 &1352072476
 GameObject:
   m_ObjectHideFlags: 0
@@ -6115,7 +6129,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4107937604507455330, guid: 690295811e7c1f843bbb542ee6194f37, type: 3}
       propertyPath: m_Name
-      value: StoveHandleRB
+      value: HandleRB
       objectReference: {fileID: 0}
     - target: {fileID: 4866258940425217717, guid: 690295811e7c1f843bbb542ee6194f37, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6199,7 +6213,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4107937604507455330, guid: 690295811e7c1f843bbb542ee6194f37, type: 3}
       propertyPath: m_Name
-      value: StoveHandleRT
+      value: HandleRT
       objectReference: {fileID: 0}
     - target: {fileID: 4866258940425217717, guid: 690295811e7c1f843bbb542ee6194f37, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6484,9 +6498,9 @@ Transform:
   m_Children:
   - {fileID: 1737265360}
   - {fileID: 2011886074}
-  - {fileID: 3074371718577992318}
   - {fileID: 1427601320}
   - {fileID: 1393355178}
+  - {fileID: 3074371718577992318}
   m_Father: {fileID: 1346586637}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1558037138
@@ -7700,7 +7714,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4107937604507455330, guid: 690295811e7c1f843bbb542ee6194f37, type: 3}
       propertyPath: m_Name
-      value: StoveHandleLT
+      value: HandleLT
       objectReference: {fileID: 0}
     - target: {fileID: 4866258940425217717, guid: 690295811e7c1f843bbb542ee6194f37, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8356,7 +8370,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4107937604507455330, guid: 690295811e7c1f843bbb542ee6194f37, type: 3}
       propertyPath: m_Name
-      value: StoveHandleLB
+      value: HandleLB
       objectReference: {fileID: 0}
     - target: {fileID: 4866258940425217717, guid: 690295811e7c1f843bbb542ee6194f37, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13584,7 +13598,7 @@ GameObject:
   - component: {fileID: 3113275334592510368}
   - component: {fileID: 4720629667298248509}
   m_Layer: 0
-  m_Name: OvebHandle
+  m_Name: OvenHandle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

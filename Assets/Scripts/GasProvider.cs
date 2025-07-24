@@ -1,25 +1,23 @@
-using System;
 using UnityEngine;
 
 
 public sealed class GasProvider : MonoBehaviour
 {
-    [Serializable]
-    private struct BurnerPack
-    {
-        public Burner burner;
-        public GasValve handle;
-    }
-
     [Header("Main Valve")]
     [SerializeField] private GasValve _mainValve;
-
-    [Header("Burners and their handles")]
-    [SerializeField] private BurnerPack[] _burners = new BurnerPack[4];
+    [SerializeField] Stove _stove;
+    BurnerPack[] _burners;
 
 
     private void Awake()
     {
+        if (!_stove)
+        {
+            Debug.Log("GasProvider: Stove link is not set.");
+            return;
+        }
+        _burners = _stove._burners;
+
         _mainValve.StateChanged += UpdateBurners;
 
         foreach (var pack in _burners)

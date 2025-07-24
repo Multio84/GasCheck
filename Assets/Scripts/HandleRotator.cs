@@ -37,7 +37,6 @@ public class HandleRotator : MonoBehaviour
     private float _angleAtGrab;             // handle rotation in a moment of grab
     private bool _isOpen;
 
-
     private int DirSign => (int) workDirection;
 
 

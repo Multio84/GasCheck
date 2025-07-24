@@ -1,9 +1,11 @@
+using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 
 
 public class Burner : MonoBehaviour
 {
     [SerializeField] GameObject jetPrefab;      // a single jetPrefab of gas prefab
+    [SerializeField] GameObject broken;
     [SerializeField] [Min(1)] int jetsAmount;
     [SerializeField] float offsetAngle;         // angle to shift rotation of all jets
     [SerializeField] bool hasGas;
@@ -18,12 +20,13 @@ public class Burner : MonoBehaviour
         }
     }
     [HideInInspector] public bool isLit = false;
+    //[HideInInspector]
+    public bool IsBroken = false;
     
     GameObject[] jets;
     float deltaAngle;                   // angle from one jetPrefab to another
     Vector3 rotationAxis = Vector3.up;
     bool isLitMatchInside = false;
-
 
 
     void Start()
@@ -68,18 +71,28 @@ public class Burner : MonoBehaviour
         Debug.Log($"{name} is trying to UpdateBurning (HasGas = {hasGas}).");
         if (hasGas && !isLitMatchInside) return;
 
-        isLit = hasGas;
         //Debug.Log($"Burner lighted up!");
 
-        foreach (var jet in jets)
+        if (IsBroken && hasGas)
         {
-            if (!jet) continue;
-            jet.SetActive(hasGas);
+            broken.SetActive(true);
+        }
+        else
+        {
+            foreach (var jet in jets)
+            {
+                if (!jet) continue;
+                jet.SetActive(hasGas);
+            }
+
+            isLit = hasGas;
         }
     }
 
     void SpawnGasJets()
     {
+        if (IsBroken) return;
+
         if (!jetPrefab)
         {
             Debug.LogWarning("Prefab not assigned!");

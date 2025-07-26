@@ -6,10 +6,10 @@ public class StoveSoundManager : MonoBehaviour
 {
     [SerializeField] private AudioSource disposableSource;  // source for playin non-looped sounds
     [SerializeField] private AudioSource loopSource;        // source for looped gas flowing sound
-    [SerializeField] private AudioClip ignitionClip;        // burner ignition
-    [SerializeField] private AudioClip ignitionBrokenClip;  // broken burner ignition
     [SerializeField] private AudioClip gasClip;             // flowing gas
     [SerializeField] private AudioClip burningClip;         // burning gas
+    [SerializeField] private AudioClip ignitionClip;        // burner ignition
+    [SerializeField] private AudioClip[] ignitionBrokenClip;// broken burner ignitions set
     float ignitionLength;
 
 
@@ -45,7 +45,8 @@ public class StoveSoundManager : MonoBehaviour
 
     public void PlayBrokenIgnition()
     {
-        disposableSource.PlayOneShot(ignitionBrokenClip);
+        int i = Random.Range(0, ignitionBrokenClip.Length);
+        disposableSource.PlayOneShot(ignitionBrokenClip[i]);
     }
 
     public void StopLoop()

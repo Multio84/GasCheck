@@ -61,7 +61,7 @@ public class Stove : MonoBehaviour
         EvaluateLoop();
     }
 
-    void OnBurnStateChanged(bool isLit, bool brokenAttempt)
+    void OnBurnStateChanged(Burner b, bool isLit, bool brokenAttempt)
     {
         if (brokenAttempt)
         {
@@ -115,35 +115,6 @@ public class Stove : MonoBehaviour
             currentLoop = LoopState.None;
         }
     }
-
-    //private void Start()
-    //{
-    //    Init();
-    //    if (hasBrokenBurners) SetBrokenBurners();
-    //}
-
-    //void Init()
-    //{
-    //    sound = GetComponent<StoveSoundManager>();
-    //    if (!sound)
-    //    {
-    //        Debug.Log("Stove: SoundManager link is not set.");
-    //    }
-
-    //    foreach (var pack in _burnerPack)
-    //    {
-    //        if (!pack.burner)
-    //        {
-    //            Debug.Log("Stove: burner link is not set.");
-    //            return;
-    //        }
-
-    //        var burner = pack.burner;
-    //        burner.BurnStateChanged += UpdateBurningSound;
-    //        burner.GasStateChanged += UpdateGasProvidedSound;
-
-    //    }
-    //}
 
     void SetBrokenBurners()
     {

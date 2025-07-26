@@ -224,7 +224,7 @@ MonoBehaviour:
   workDirection: -1
   minAngle: 0
   maxAngle: 90
-  tolerance: 5
+  tolerance: 10
 --- !u!114 &3787167623448744797
 MonoBehaviour:
   m_ObjectHideFlags: 0

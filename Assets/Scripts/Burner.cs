@@ -23,7 +23,7 @@ public class Burner : MonoBehaviour
     [HideInInspector] public bool IsBroken = false;
 
     public event Action<bool /*hasGas*/> GasStateChanged;
-    public event Action<bool /*isLit*/, bool /*isBroken*/> BurnStateChanged;
+    public event Action<Burner, bool /*isLit*/, bool /*isBroken*/> BurnStateChanged;
 
     GameObject[] jets;
     float deltaAngle;   // angle from one jetPrefab to another
@@ -69,7 +69,7 @@ public class Burner : MonoBehaviour
         // broken ignition
         if (hasGas && isLitMatchInside && IsBroken)
         {
-            BurnStateChanged?.Invoke(false, true/*isBroken*/);
+            BurnStateChanged?.Invoke(this, false, true/*isBroken*/);
             return;
         }
 
@@ -80,7 +80,7 @@ public class Burner : MonoBehaviour
         foreach (var jet in jets) 
             if (jet) jet.SetActive(isLit);
 
-        BurnStateChanged?.Invoke(isLit, false);
+        BurnStateChanged?.Invoke(this, isLit, false);
     }
 
     void SpawnGasJets()

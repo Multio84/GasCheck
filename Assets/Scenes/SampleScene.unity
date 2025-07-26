@@ -1850,7 +1850,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1963786136141143560, guid: 09edf827010b8f642877de718876db94, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7180564
+      value: 0.8013142
       objectReference: {fileID: 0}
     - target: {fileID: 1963786136141143560, guid: 09edf827010b8f642877de718876db94, type: 3}
       propertyPath: m_LocalRotation.x
@@ -1858,7 +1858,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1963786136141143560, guid: 09edf827010b8f642877de718876db94, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.695985
+      value: -0.59824383
       objectReference: {fileID: 0}
     - target: {fileID: 1963786136141143560, guid: 09edf827010b8f642877de718876db94, type: 3}
       propertyPath: m_LocalRotation.z
@@ -1870,7 +1870,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1963786136141143560, guid: 09edf827010b8f642877de718876db94, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -88.212
+      value: -73.488
       objectReference: {fileID: 0}
     - target: {fileID: 1963786136141143560, guid: 09edf827010b8f642877de718876db94, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -5886,14 +5886,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   disposableSource: {fileID: 1346586639}
   loopSource: {fileID: 1346586641}
+  gasClip: {fileID: 8300000, guid: 2136802796dd5ca438b2ed5bf9ceb114, type: 3}
+  burningClip: {fileID: 8300000, guid: d3c93b6a94e00d3459ac494fab89b264, type: 3}
   ignitionClip: {fileID: 8300000, guid: 2127a603011956f4781344b9f75afecf, type: 3}
   ignitionBrokenClip:
   - {fileID: 8300000, guid: ac7c8d96d72c16d4cad5dbd2215189f2, type: 3}
   - {fileID: 8300000, guid: f37c4cbb8e0500b428cb21cc730e506c, type: 3}
   - {fileID: 8300000, guid: 72e8864c3549ff24a849be9dd1c20528, type: 3}
   - {fileID: 8300000, guid: fc0e1c016fb76784d916e2c1bfdc4c16, type: 3}
-  gasClip: {fileID: 8300000, guid: 2136802796dd5ca438b2ed5bf9ceb114, type: 3}
-  burningClip: {fileID: 8300000, guid: d3c93b6a94e00d3459ac494fab89b264, type: 3}
 --- !u!82 &1346586641
 AudioSource:
   m_ObjectHideFlags: 0

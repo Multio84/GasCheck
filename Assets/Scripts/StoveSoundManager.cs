@@ -22,7 +22,7 @@ public class StoveSoundManager : MonoBehaviour
     {
         loopSource.clip = gasClip;
         loopSource.Play();
-        Debug.Log($"Loop with sound '{loopSource.clip}' started.");
+        //Debug.Log($"Loop with sound '{loopSource.clip}' started.");
     }
 
     public void PlayBurning(bool isFirstBurner)
@@ -34,7 +34,7 @@ public class StoveSoundManager : MonoBehaviour
             StartCoroutine(IgnitionDelay());
             loopSource.clip = burningClip;
             loopSource.Play();
-            Debug.Log($"Loop with sound '{loopSource.clip}' started.");
+            //Debug.Log($"Loop with sound '{loopSource.clip}' started.");
         }
     }
 
@@ -46,8 +46,8 @@ public class StoveSoundManager : MonoBehaviour
 
     public void StopLoop()
     {
-        Debug.LogWarning($"Loop with sound '{loopSource.clip}' stopped.");
         loopSource.Stop();
+        //Debug.LogWarning($"Loop with sound '{loopSource.clip}' stopped.");
     }
 
     private IEnumerator IgnitionDelay()

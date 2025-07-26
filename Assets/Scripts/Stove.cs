@@ -121,7 +121,7 @@ public class Stove : MonoBehaviour
         int count = BURNERS_COUNT;
 
         // at least one burner should be in order, and one broken:
-        burnerStates = new List<bool> { true, true, false };
+        burnerStates = new List<bool> { false, false, true };
         for (int i = burnerStates.Count; i < count; i++)
         {
             burnerStates.Add(UnityEngine.Random.value > 0.5);

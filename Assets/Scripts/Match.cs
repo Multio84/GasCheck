@@ -41,9 +41,8 @@ public class Match : MonoBehaviour
         Vector3 curLocal = lighter.InverseTransformPoint(transform.position);
         Vector3 delta = curLocal - startLocalPos;
 
-        // check the way along lighter's tangent
+        // check the distance along lighter's tangent
         Vector3 tangential = Vector3.ProjectOnPlane(lighter.TransformVector(delta), surfaceNormal);
-
         float dist = tangential.magnitude;
 
         // play strike sound
@@ -53,7 +52,7 @@ public class Match : MonoBehaviour
             scratchPlayed = true;
         }
 
-        if (dist >= strikeDistance)
+        if (!isLit && dist >= strikeDistance)
             LightUp();
     }
 
@@ -65,6 +64,7 @@ public class Match : MonoBehaviour
 
     public void LightUp()
     {
+        if (isLit) return;
         isLit = true;
         touching = false;
 

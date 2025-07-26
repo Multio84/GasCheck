@@ -3394,11 +3394,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 669986884}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &670352618 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1847001156038071335, guid: 4ccf9944a7ba95141a53d06696c757e6, type: 3}
-  m_PrefabInstance: {fileID: 961322826}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &680401310
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4682,10 +4677,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Valve
       objectReference: {fileID: 0}
-    - target: {fileID: 5050696481061630700, guid: 4ccf9944a7ba95141a53d06696c757e6, type: 3}
-      propertyPath: workDirection
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6342676104345101026, guid: 4ccf9944a7ba95141a53d06696c757e6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -4729,10 +4720,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1847001156038071335, guid: 4ccf9944a7ba95141a53d06696c757e6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 961322831}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ccf9944a7ba95141a53d06696c757e6, type: 3}
 --- !u!4 &961322827 stripped
 Transform:
@@ -4744,26 +4732,23 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5050696481061630700, guid: 4ccf9944a7ba95141a53d06696c757e6, type: 3}
   m_PrefabInstance: {fileID: 961322826}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 670352618}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 605a58a5b039a6b49abf50b6d3ca3445, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &961322831
+--- !u!114 &961322831 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 4356301104997620615, guid: 4ccf9944a7ba95141a53d06696c757e6, type: 3}
+  m_PrefabInstance: {fileID: 961322826}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 670352618}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14788293b5b19b443ba12fb1625a7a65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handle: {fileID: 961322828}
-  _isOpen: 0
 --- !u!1 &1045701457
 GameObject:
   m_ObjectHideFlags: 0
@@ -5981,7 +5966,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2d9ae933c07f5746a14b3c78bbc30c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasBrokenBurners: 1
   _burnerPack:
   - burner: {fileID: 1865043774}
     handle: {fileID: 277419465056116129}
@@ -5991,6 +5975,7 @@ MonoBehaviour:
     handle: {fileID: 1427601322}
   - burner: {fileID: 1739117193}
     handle: {fileID: 1393355180}
+  hasBrokenBurners: 1
 --- !u!82 &1346586639
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7416,6 +7401,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stove: {fileID: 1346586638}
   ui: {fileID: 2029930841}
+  checkCompleteClip: {fileID: 8300000, guid: 039f26aa9b97f1a4bb49dbda867479b0, type: 3}
 --- !u!4 &1677218629
 Transform:
   m_ObjectHideFlags: 0

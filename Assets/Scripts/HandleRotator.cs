@@ -20,11 +20,11 @@ public class HandleRotator : MonoBehaviour
     [Tooltip("Направление вращения от стартовой позиции: по часовой, или против")]
     public RotationDirection workDirection = RotationDirection.Clockwise;
 
-    public float minAngle = 0f;
-    public float maxAngle = 90f;
+    [SerializeField] float minAngle = 0f;
+    [SerializeField] float maxAngle = 90f;
 
-    [Tooltip("Угол, после поворота на который, газ считается поданным")]
-    [Range(0f, 20f)] public float tolerance = 10f;
+    [Tooltip("Угол, после поворота на который газ считается поданным")]
+    [SerializeField] float tolerance = 45f;
 
     public event Action<bool> StateChanged;
 

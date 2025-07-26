@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private Stove stove;
     [SerializeField] private GameObject ui;
+    [SerializeField] private AudioClip checkCompleteClip;
     private readonly HashSet<Burner> checkedBurners = new();
 
 
@@ -33,11 +35,18 @@ public class GameManager : MonoBehaviour
 
         checkedBurners.Add(b);
         if (checkedBurners.Count == stove._burnerPack.Length)
-            ShowUI();
+            StartCoroutine(ShowUI());
     }
 
-    private void ShowUI()
+    private IEnumerator ShowUI()
     {
+        yield return new WaitForSeconds(1f);
+
+        if (checkCompleteClip)
+            AudioSource.PlayClipAtPoint(checkCompleteClip, stove.transform.position);
+
         ui.SetActive(true);
+
+        yield return null;
     }
 }

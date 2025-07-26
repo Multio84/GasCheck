@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Audio;
 
 
 /// <summary>
@@ -10,6 +11,7 @@ using UnityEngine;
 public class GasValve : MonoBehaviour
 {
     [SerializeField] private HandleRotator handle;
+    [SerializeField] private AudioSource audioSource;
     [SerializeField] private bool _isOpen;
     public bool IsOpen => _isOpen;
 
@@ -37,6 +39,7 @@ public class GasValve : MonoBehaviour
         if (_isOpen == value) return;
         _isOpen = value;
 
+        if (audioSource) audioSource.Play();
         StateChanged?.Invoke();
     }
 }

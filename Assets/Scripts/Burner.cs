@@ -8,6 +8,7 @@ public class Burner : MonoBehaviour
     [SerializeField] [Min(1)] private int jetsAmount;
     [SerializeField] private float offsetAngle;         // angle to shift rotation of all jets
     [SerializeField] private bool hasGas;
+    [HideInInspector]
     public bool HasGas 
     {
         get => hasGas;
@@ -20,7 +21,7 @@ public class Burner : MonoBehaviour
         }
     }
     [HideInInspector] public bool isLit = false;
-    [HideInInspector] public bool IsBroken = false;
+    public bool IsBroken = false;
 
     public event Action<bool /*hasGas*/> GasStateChanged;
     public event Action<Burner, bool /*isLit*/, bool /*isBroken*/> BurnStateChanged;
@@ -53,13 +54,26 @@ public class Burner : MonoBehaviour
     }
 
     private void Interact(Collider obj)
+    //{
+    //    Match match = obj.GetComponentInParent<Match>();
+    //    if (!match) return;
+    //    if (match.isLit) isLitMatchInside = true;
+
+    //    if (isLit && !match.isLit) match.LightUp();
+    //    else UpdateBurning();
+    //}
     {
         Match match = obj.GetComponentInParent<Match>();
         if (!match) return;
-        if (match.isLit) isLitMatchInside = true;
+
+        if (match.isLit)
+        {
+            isLitMatchInside = true;
+            if (!isLit) UpdateBurning();
+            return;
+        }
 
         if (isLit) match.LightUp();
-        else UpdateBurning();
     }
 
     private void UpdateBurning()
@@ -87,7 +101,7 @@ public class Burner : MonoBehaviour
 
         if (!jetPrefab)
         {
-            Debug.LogWarning("Prefab not assigned!");
+            Debug.LogError("Prefab not assigned!");
             return;
         }
 

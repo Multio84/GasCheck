@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 
@@ -16,7 +17,7 @@ public sealed class GasProvider : MonoBehaviour
             Debug.Log("GasProvider: Stove link is not set.");
             return;
         }
-        _burners = _stove._burners;
+        _burners = _stove._burnerPack;
 
         _mainValve.StateChanged += UpdateBurners;
 
@@ -38,6 +39,9 @@ public sealed class GasProvider : MonoBehaviour
         bool gasInManifold = _mainValve.IsOpen;
 
         foreach (var pack in _burners)
-            pack.burner.HasGas = gasInManifold && pack.handle.IsOpen;
+        {
+            var hasGas = gasInManifold && pack.handle.IsOpen;
+            pack.burner.HasGas = hasGas;
+        }
     }
 }

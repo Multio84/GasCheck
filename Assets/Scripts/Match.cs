@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class Match : MonoBehaviour
 {
-    [SerializeField] float strikeDistance = 0.025f;   // 2Ц3 см
+    [SerializeField] float strikeDistance = 0.02f;   // 2Ц3 см
     [SerializeField] GameObject fire;
     public bool isLit = false;
 
     bool touching = false;
-    Transform lighter;      // коробка
+    Transform lighter;      // 
     Vector3 startLocalPos;  // где был кончик при первом касании
     Vector3 surfaceNormal;  // нормаль площадки (дл€ отбрасывани€ Ђуглублени€ї)
 
@@ -23,10 +23,6 @@ public class Match : MonoBehaviour
         lighter = other.transform;
         startLocalPos = lighter.InverseTransformPoint(transform.position);
 
-        /*  ” триггера нет ContactPoint, поэтому нормаль задаЄм вручную.
-         *  ѕусть нормаль Ђснаружиї Ц это локальна€ +Z  light-era.
-         *  ѕри другом расположении выберите другую ось или
-         *  храните в самом light-ере скрипт с нужным Vector3.              */
         surfaceNormal = lighter.forward;
     }
 

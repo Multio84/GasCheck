@@ -4896,7 +4896,6 @@ GameObject:
   - component: {fileID: 3511105524050994036}
   - component: {fileID: 4474045221287596334}
   - component: {fileID: 623123694602003883}
-  - component: {fileID: 6031184600057293637}
   m_Layer: 0
   m_Name: Match
   m_TagString: Untagged
@@ -5126,22 +5125,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58b3d3afff4459f4da387e32a197c0eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strikeDistance: 0.015
+  strikeDistance: 0.005
   fire: {fileID: 157464990664344607}
   isLit: 0
---- !u!114 &6031184600057293637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5201566025041290324}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f7de38f5625eff4bb38b2467e1bc103, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  logAuthor: Match
 --- !u!1 &5489975288661952335
 GameObject:
   m_ObjectHideFlags: 0

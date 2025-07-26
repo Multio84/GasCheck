@@ -37,6 +37,8 @@ public class GasValve : MonoBehaviour
         if (_isOpen == value) return;
         _isOpen = value;
 
+
+
         StateChanged?.Invoke();
     }
 }

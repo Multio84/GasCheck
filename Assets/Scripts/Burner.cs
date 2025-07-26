@@ -1,11 +1,10 @@
-using UnityEditor.ShaderKeywordFilter;
+using System;
 using UnityEngine;
 
 
 public class Burner : MonoBehaviour
 {
     [SerializeField] GameObject jetPrefab;      // a single jetPrefab of gas prefab
-    [SerializeField] GameObject broken;
     [SerializeField] [Min(1)] int jetsAmount;
     [SerializeField] float offsetAngle;         // angle to shift rotation of all jets
     [SerializeField] bool hasGas;
@@ -16,15 +15,18 @@ public class Burner : MonoBehaviour
         {
             if (HasGas == value) return;
             hasGas = value;
+            GasStateChanged?.Invoke(hasGas);
             UpdateBurning();
         }
     }
     [HideInInspector] public bool isLit = false;
-    //[HideInInspector]
-    public bool IsBroken = false;
-    
+    [HideInInspector] public bool IsBroken = false;
+
+    public event Action<bool /*hasGas*/> GasStateChanged;
+    public event Action<bool /*isLit*/, bool /*isBroken*/> BurnStateChanged;
+
     GameObject[] jets;
-    float deltaAngle;                   // angle from one jetPrefab to another
+    float deltaAngle;   // angle from one jetPrefab to another
     Vector3 rotationAxis = Vector3.up;
     bool isLitMatchInside = false;
 
@@ -40,7 +42,6 @@ public class Burner : MonoBehaviour
     {
         //Debug.Log($"{other.name} entered {name}");
         if (!other.CompareTag("MatchTip")) return;
-
         Interact(other);
     }
 
@@ -48,7 +49,6 @@ public class Burner : MonoBehaviour
     {
         //Debug.Log($"{other.name} quited {name}.");
         if (!other.CompareTag("MatchTip")) return;
-
         isLitMatchInside = false;
     }
 
@@ -58,9 +58,7 @@ public class Burner : MonoBehaviour
         if (!match) return;
         if (match.isLit) isLitMatchInside = true;
 
-        if (isLit == match.isLit) return;
-
-        Debug.Log($"{name} is cheching for light up");
+        //if (isLit == match.isLit) return;
 
         if (isLit) match.LightUp();
         else UpdateBurning();
@@ -68,25 +66,21 @@ public class Burner : MonoBehaviour
 
     void UpdateBurning()
     {
-        Debug.Log($"{name} is trying to UpdateBurning (HasGas = {hasGas}).");
-        if (hasGas && !isLitMatchInside) return;
-
-        //Debug.Log($"Burner lighted up!");
-
-        if (IsBroken && hasGas)
+        // broken ignition
+        if (hasGas && isLitMatchInside && IsBroken)
         {
-            broken.SetActive(true);
+            BurnStateChanged?.Invoke(false, true/*isBroken*/);
+            return;
         }
-        else
-        {
-            foreach (var jet in jets)
-            {
-                if (!jet) continue;
-                jet.SetActive(hasGas);
-            }
 
-            isLit = hasGas;
-        }
+        bool newLitState = hasGas && isLitMatchInside && !IsBroken;
+        if (newLitState == isLit) return;
+
+        isLit = newLitState;
+        foreach (var jet in jets) 
+            if (jet) jet.SetActive(isLit);
+
+        BurnStateChanged?.Invoke(isLit, false);
     }
 
     void SpawnGasJets()

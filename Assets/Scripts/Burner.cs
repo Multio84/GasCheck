@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Burner : MonoBehaviour
 {
-    [SerializeField] GameObject jetPrefab;      // a single jetPrefab of gas prefab
-    [SerializeField] [Min(1)] int jetsAmount;
-    [SerializeField] float offsetAngle;         // angle to shift rotation of all jets
-    [SerializeField] bool hasGas;
+    [SerializeField] private GameObject jetPrefab;      // a single jetPrefab of gas prefab
+    [SerializeField] [Min(1)] private int jetsAmount;
+    [SerializeField] private float offsetAngle;         // angle to shift rotation of all jets
+    [SerializeField] private bool hasGas;
     public bool HasGas 
     {
         get => hasGas;
@@ -25,46 +25,44 @@ public class Burner : MonoBehaviour
     public event Action<bool /*hasGas*/> GasStateChanged;
     public event Action<Burner, bool /*isLit*/, bool /*isBroken*/> BurnStateChanged;
 
-    GameObject[] jets;
-    float deltaAngle;   // angle from one jetPrefab to another
-    Vector3 rotationAxis = Vector3.up;
-    bool isLitMatchInside = false;
+    private GameObject[] jets;
+    private float deltaAngle;   // angle from one jetPrefab to another
+    private Vector3 rotationAxis = Vector3.up;
+    private bool isLitMatchInside = false;
 
 
-    void Start()
+    private void Start()
     {
         jets = new GameObject[jetsAmount];
 
         SpawnGasJets();
     }
 
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         //Debug.Log($"{other.name} entered {name}");
         if (!other.CompareTag("MatchTip")) return;
         Interact(other);
     }
 
-    void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         //Debug.Log($"{other.name} quited {name}.");
         if (!other.CompareTag("MatchTip")) return;
         isLitMatchInside = false;
     }
 
-    void Interact(Collider obj)
+    private void Interact(Collider obj)
     {
         Match match = obj.GetComponentInParent<Match>();
         if (!match) return;
         if (match.isLit) isLitMatchInside = true;
 
-        //if (isLit == match.isLit) return;
-
         if (isLit) match.LightUp();
         else UpdateBurning();
     }
 
-    void UpdateBurning()
+    private void UpdateBurning()
     {
         // broken ignition
         if (hasGas && isLitMatchInside && IsBroken)
@@ -83,7 +81,7 @@ public class Burner : MonoBehaviour
         BurnStateChanged?.Invoke(this, isLit, false);
     }
 
-    void SpawnGasJets()
+    private void SpawnGasJets()
     {
         if (IsBroken) return;
 

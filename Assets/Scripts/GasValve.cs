@@ -3,13 +3,13 @@ using UnityEngine;
 
 
 /// <summary>
-/// Универсальный вентиль/рукоятка, подписываемый на вращателей 
-/// с целью получить сообщение о крайнем положении рукоятки и 
-/// сообщить об этом всем слушателям.
+/// Universal valve/handle
+/// Can be turnes CW or CCW between set angles.
+/// Sends messages when is open/closed.
 /// </summary>
 public class GasValve : MonoBehaviour
 {
-    [SerializeField] HandleRotator handle;
+    [SerializeField] private HandleRotator handle;
     [SerializeField] private bool _isOpen;
     public bool IsOpen => _isOpen;
 
@@ -36,8 +36,6 @@ public class GasValve : MonoBehaviour
     {
         if (_isOpen == value) return;
         _isOpen = value;
-
-
 
         StateChanged?.Invoke();
     }

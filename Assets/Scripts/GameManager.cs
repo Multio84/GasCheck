@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] Stove stove;
-    [SerializeField] GameObject ui;
-    readonly HashSet<Burner> checkedBurners = new();
+    [SerializeField] private Stove stove;
+    [SerializeField] private GameObject ui;
+    private readonly HashSet<Burner> checkedBurners = new();
 
 
-    void Awake()
+    private void Awake()
     {
         if (!stove)
         {
@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
         ui.SetActive(false);
     }
 
-    void OnBurnStateChanged(Burner b, bool isLit, bool brokenAttempt)
+    private void OnBurnStateChanged(Burner b, bool isLit, bool brokenAttempt)
     {
         if (checkedBurners.Contains(b)) return;
 
@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
             ShowUI();
     }
 
-    void ShowUI()
+    private void ShowUI()
     {
         ui.SetActive(true);
     }

@@ -16,15 +16,15 @@ public class Stove : MonoBehaviour
     StoveSoundManager sound;
 
     [Header("Burners and their handles")]
-    [SerializeField] bool hasBrokenBurners = true;
     public BurnerPack[] _burnerPack = new BurnerPack[4];
+    [SerializeField] private bool hasBrokenBurners = true;
 
     const int BURNERS_COUNT = 4;
-    List<bool> burnerStates;
-    int burnersWithGas = 0;
-    int burningBurners = 0;
-    enum LoopState { None, Gas, Burning }
-    LoopState currentLoop = LoopState.None;
+    private List<bool> burnerStates;
+    private int burnersWithGas = 0;
+    private int burningBurners = 0;
+    private enum LoopState { None, Gas, Burning }
+    private LoopState currentLoop = LoopState.None;
 
 
     void Start()

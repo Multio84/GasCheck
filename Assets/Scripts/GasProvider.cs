@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 
@@ -6,8 +5,8 @@ public sealed class GasProvider : MonoBehaviour
 {
     [Header("Main Valve")]
     [SerializeField] private GasValve _mainValve;
-    [SerializeField] Stove _stove;
-    BurnerPack[] _burners;
+    [SerializeField] private Stove _stove;
+    private BurnerPack[] _burners;
 
 
     private void Awake()

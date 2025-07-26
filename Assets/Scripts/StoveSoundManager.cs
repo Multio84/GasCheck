@@ -10,7 +10,7 @@ public class StoveSoundManager : MonoBehaviour
     [SerializeField] private AudioClip burningClip;         // burning gas
     [SerializeField] private AudioClip ignitionClip;        // burner ignition
     [SerializeField] private AudioClip[] ignitionBrokenClip;// broken burner ignitions set
-    float ignitionLength;
+    private float ignitionLength;
 
 
     private void Awake()
@@ -38,11 +38,6 @@ public class StoveSoundManager : MonoBehaviour
         }
     }
 
-    private IEnumerator IgnitionDelay()
-    {
-        yield return new WaitForSeconds(ignitionLength);
-    }
-
     public void PlayBrokenIgnition()
     {
         int i = Random.Range(0, ignitionBrokenClip.Length);
@@ -53,5 +48,10 @@ public class StoveSoundManager : MonoBehaviour
     {
         Debug.LogWarning($"Loop with sound '{loopSource.clip}' stopped.");
         loopSource.Stop();
+    }
+
+    private IEnumerator IgnitionDelay()
+    {
+        yield return new WaitForSeconds(ignitionLength);
     }
 }

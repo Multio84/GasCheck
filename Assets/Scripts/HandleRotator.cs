@@ -72,16 +72,15 @@ public class HandleRotator : MonoBehaviour
     {
         enabled = false;
     }
+    #endregion
 
     private void OnTriggerExit(Collider other)
     {
-        if (_interactor is not null && other.transform == _interactor)
+        if (_interactor && other.transform == _interactor)
             OnRelease(default);
     }
-    #endregion
 
-
-    void Update()
+    private void Update()
     {
         if (!_grab.isSelected) return;
 

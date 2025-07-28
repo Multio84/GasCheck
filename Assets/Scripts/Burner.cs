@@ -20,7 +20,7 @@ public class Burner : MonoBehaviour
             UpdateBurning();
         }
     }
-    [HideInInspector] public bool isLit = false;
+    public bool isLit = true;
     public bool IsBroken = false;
 
     public event Action<bool /*hasGas*/> GasStateChanged;
@@ -54,14 +54,6 @@ public class Burner : MonoBehaviour
     }
 
     private void Interact(Collider obj)
-    //{
-    //    Match match = obj.GetComponentInParent<Match>();
-    //    if (!match) return;
-    //    if (match.isLit) isLitMatchInside = true;
-
-    //    if (isLit && !match.isLit) match.LightUp();
-    //    else UpdateBurning();
-    //}
     {
         Match match = obj.GetComponentInParent<Match>();
         if (!match) return;
@@ -105,7 +97,7 @@ public class Burner : MonoBehaviour
             return;
         }
 
-        deltaAngle = 360 / (jetsAmount - 1);
+        deltaAngle = 360f / jetsAmount;
         Quaternion currentRotation = Quaternion.AngleAxis(offsetAngle, rotationAxis);
 
         for (int i = 0; i < jetsAmount; i++)
@@ -117,7 +109,7 @@ public class Burner : MonoBehaviour
                 transform
                 );
 
-            jet.SetActive(false);
+            jet.SetActive(isLit);
             jets[i] = jet;
 
             // next object's rotation
